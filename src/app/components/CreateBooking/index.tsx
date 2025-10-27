@@ -141,8 +141,6 @@ const CreateBooking = ({ visible, onHide, refetch }: BookingDialogProps) => {
       hour: null,
     },
   });
-  console.log(isValid, 'isValid');
-  console.log(JSON.stringify(getValues()) , 'getValues');
 
   const selectedDate = watch('date');
   const selectedHour = watch('hour');
