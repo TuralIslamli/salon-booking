@@ -1,0 +1,75 @@
+$page-padding: 1.5rem 2rem;
+$bg-color: #121212;
+$card-bg: #1f1f1f;
+$brand-yellow: #ffd700;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: $page-padding;
+  background-color: $bg-color;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #2e2e2e;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
+.addButton {
+  background-color: $brand-yellow !important;
+  color: #121212 !important;
+  font-weight: bold;
+  border: none !important;
+  font-size: 20px;
+  padding: 0.25rem 1rem;
+  border-radius: 8px;
+
+  @media (max-width: 480px) {
+    padding: 0.5rem 0.75rem;
+    font-size: 18px;
+    align-self: flex-end;
+  }
+}
+
+.cardList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background-color: $card-bg !important;
+  border-radius: 12px;
+  padding: 1.25rem !important;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.08);
+}
+
+.item {
+  font-size: 15px;
+  margin-bottom: 0.5rem;
+}
+
+.label {
+  color: #bbb;
+  font-weight: 500;
+  margin-right: 5px;
+}

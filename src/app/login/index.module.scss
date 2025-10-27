@@ -1,0 +1,68 @@
+.login {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: calc(50%) 50%;
+  background-size: 70%;
+  background-color: #1a1a1a;
+  color: white;
+  padding: 2rem;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7); // затемнение
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.card {
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.card h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ddd;
+  align-self: start;
+}
+
+.phoneInput, .otpInput {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.otpInput{
+  align-items: center;
+}
