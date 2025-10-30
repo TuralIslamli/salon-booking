@@ -45,6 +45,7 @@ function OtpInput({ setStep, phone }: IProps) {
     <div className={styles.otpInput}>
       <Toast ref={toast} />
       <InputOtp
+        integerOnly
         value={otp}
         onChange={(e) => setOtp(e.value as string)}
         length={4}
