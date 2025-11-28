@@ -13,7 +13,7 @@ interface IProps {
 }
 
 function PhoneInput({ setStep, phone, setPhone }: IProps) {
-  const { mutate: loginMutate } = useMutation({
+  const { mutate: loginMutate, isPending } = useMutation({
     mutationFn: async () => postLogin({ phone: normalizePhone(phone) }),
     onSuccess: () => {
       setStep('otp');
@@ -27,6 +27,12 @@ function PhoneInput({ setStep, phone, setPhone }: IProps) {
     loginMutate();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && normalizePhone(phone).length === 12) {
+      handleSendOtp();
+    }
+  };
+
   return (
     <div className={styles.phoneInput}>
       <label htmlFor="phone" className={styles.label}>
@@ -38,6 +44,7 @@ function PhoneInput({ setStep, phone, setPhone }: IProps) {
         placeholder="+994 99 999-99-99"
         value={phone}
         onChange={(e) => setPhone(e.target.value as string)}
+        onKeyDown={handleKeyDown}
         className={styles.input}
       />
       <Button
@@ -45,6 +52,7 @@ function PhoneInput({ setStep, phone, setPhone }: IProps) {
         onClick={handleSendOtp}
         className={styles.button}
         disabled={normalizePhone(phone).length !== 12}
+        loading={isPending}
       />
     </div>
   );

@@ -177,7 +177,7 @@ const CreateBooking = ({ visible, onHide, refetch }: BookingDialogProps) => {
 
   const onSubmit = (data: BookingFormData) => {
     const payload = {
-      client_name: data.client_name.trim(),
+      client_name: data.client_name,
       doctor_id: data.doctor?.id,
       reservation_date: `${format(data.date as Date, 'dd-MM-yyyy')} ${
         data.hour!.time

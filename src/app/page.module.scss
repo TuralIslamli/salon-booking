@@ -1,75 +1,459 @@
-$page-padding: 1.5rem 2rem;
-$bg-color: #121212;
-$card-bg: #1f1f1f;
-$brand-yellow: #ffd700;
+/* ═══════════════════════════════════════════════════════════════════
+   BOOKINGS PAGE - Premium Dashboard Design
+   ═══════════════════════════════════════════════════════════════════ */
+
+$brand-gold: #facc15;
+$brand-gold-light: #fde047;
+$brand-gold-dark: #eab308;
+$bg-primary: #0a0a0a;
+$bg-card: #161616;
+$bg-elevated: #1a1a1a;
+$border-subtle: #262626;
+$border-default: #333333;
 
 .page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: $page-padding;
-  background-color: $bg-color;
+  padding: 1.5rem 2rem;
+  background: 
+    radial-gradient(ellipse at 0% 0%, rgba(250, 204, 21, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(250, 204, 21, 0.02) 0%, transparent 50%),
+    linear-gradient(180deg, $bg-primary 0%, #111111 100%);
   color: white;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  @media (max-width: 640px) {
+    padding: 1rem;
+  }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════════════ */
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #2e2e2e;
+  padding-bottom: 1.25rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid $border-subtle;
   flex-wrap: wrap;
   gap: 1rem;
+  animation: slideDown 0.5s ease-out;
 
   &__actions {
     display: flex;
-    gap: 10px;
-
+    gap: 12px;
+    
     @media (max-width: 480px) {
-      flex-direction: column;
-      align-items: flex-start;
+      width: 100%;
+      justify-content: flex-end;
     }
   }
 }
 
-.addButton {
-  background-color: $brand-yellow !important;
-  color: #121212 !important;
-  font-weight: bold;
-  border: none !important;
-  font-size: 20px;
-  padding: 0.25rem 1rem;
-  border-radius: 8px;
-
-  @media (max-width: 480px) {
-    padding: 0.5rem 0.75rem;
-    font-size: 18px;
-    align-self: flex-end;
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.cardList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
+.addButton {
+  position: relative;
+  background: linear-gradient(135deg, $brand-gold-light 0%, $brand-gold 50%, $brand-gold-dark 100%) !important;
+  color: $bg-primary !important;
+  font-weight: 700 !important;
+  font-size: 1.25rem !important;
+  border: none !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(250, 204, 21, 0.2);
+
+  &:hover {
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 
+      0 8px 25px rgba(250, 204, 21, 0.3),
+      0 0 0 2px rgba(250, 204, 21, 0.3) !important;
+  }
+  
+  &:active {
+    transform: translateY(-1px) scale(1.02) !important;
+  }
 }
 
+.logoutButton {
+  background: transparent !important;
+  border: 2px solid $border-default !important;
+  color: #737373 !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 14px !important;
+  transition: all 0.3s ease !important;
+  
+  &:hover {
+    border-color: #ef4444 !important;
+    color: #ef4444 !important;
+    background: rgba(239, 68, 68, 0.1) !important;
+    transform: translateY(-2px) !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════════ */
+
+.main {
+  flex: 1;
+  margin-top: 1rem;
+  animation: fadeIn 0.6s ease-out 0.2s backwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: $brand-gold;
+  text-align: center;
+  padding: 4rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  
+  &::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top-color: $brand-gold;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TAB VIEW
+   ═══════════════════════════════════════════════════════════════════ */
+
+.tabView {
+  :global {
+    .p-tabview-nav-container {
+      margin-bottom: 0.5rem;
+    }
+    
+    .p-tabview-nav {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid $border-subtle;
+      gap: 0.25rem;
+      padding: 0;
+    }
+
+    .p-tabview-nav-link {
+      background: transparent !important;
+      border: none !important;
+      color: #666 !important;
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+      border-radius: 12px 12px 0 0;
+      position: relative;
+      
+      /* Bottom indicator line */
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background: linear-gradient(90deg, $brand-gold-light, $brand-gold-dark);
+        border-radius: 3px 3px 0 0;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      &:hover {
+        color: $brand-gold !important;
+        background: rgba(250, 204, 21, 0.05) !important;
+        
+        &::after {
+          width: 30%;
+        }
+      }
+    }
+
+    .p-tabview-header.p-highlight .p-tabview-nav-link,
+    .p-tabview-header.p-tabview-selected .p-tabview-nav-link,
+    .p-tabview-header[data-p-highlight="true"] .p-tabview-nav-link,
+    .p-tabview-nav-link[aria-selected="true"] {
+      color: $brand-gold !important;
+      background: rgba(250, 204, 21, 0.08) !important;
+      
+      &::after {
+        width: 60%;
+      }
+    }
+
+    .p-tabview-panels {
+      background: transparent;
+      padding: 0;
+      border: none;
+    }
+
+    .p-tabview-panel {
+      padding: 0;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CARD GRID
+   ═══════════════════════════════════════════════════════════════════ */
+
+.cardList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  
+  /* Staggered animation for cards */
+  > * {
+    animation: cardEnter 0.5s ease-out backwards;
+  }
+  
+  @for $i from 1 through 20 {
+    > *:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.05}s;
+    }
+  }
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BOOKING CARD
+   ═══════════════════════════════════════════════════════════════════ */
+
 .card {
-  background-color: $card-bg !important;
-  border-radius: 12px;
-  padding: 1.25rem !important;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.08);
+  background: linear-gradient(145deg, $bg-card 0%, darken($bg-card, 2%) 100%) !important;
+  border: 1px solid $border-subtle !important;
+  border-radius: 16px !important;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  transition: all 0.35s ease !important;
+  overflow: hidden;
+  position: relative;
+
+  /* Subtle gradient overlay on hover */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(250, 204, 21, 0.03) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+  
+  :global(.p-card-content) {
+    padding: 0 !important;
+  }
+  
+  :global(.p-card-body) {
+    padding: 1.25rem !important;
+  }
+
+  &:hover {
+    transform: translateY(-6px) !important;
+    border-color: rgba(250, 204, 21, 0.3) !important;
+    box-shadow: 
+      0 12px 40px rgba(0, 0, 0, 0.4),
+      0 0 30px rgba(250, 204, 21, 0.1),
+      0 0 0 1px rgba(250, 204, 21, 0.1) !important;
+    
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CARD CONTENT
+   ═══════════════════════════════════════════════════════════════════ */
+
+.statusItem {
+  text-align: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid $border-subtle;
+  
+  :global(.p-tag) {
+    font-size: 0.7rem !important;
+    padding: 0.4rem 1rem !important;
+    letter-spacing: 0.5px;
+  }
 }
 
 .item {
-  font-size: 15px;
-  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+  color: #e5e5e5;
+  letter-spacing: 0.2px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Icon styling if using icons */
+  i {
+    color: $brand-gold;
+    font-size: 0.9rem;
+    width: 18px;
+    opacity: 0.8;
+  }
 }
 
 .label {
-  color: #bbb;
+  color: #737373;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 70px;
+}
+
+.value {
+  color: #fef3c7;
   font-weight: 500;
-  margin-right: 5px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   EMPTY STATE
+   ═══════════════════════════════════════════════════════════════════ */
+
+.emptyState {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #666;
+  
+  i {
+    font-size: 3rem;
+    color: #444;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+}
+
+/* Message override for empty state */
+.cardList {
+  :global(.p-message.p-message-secondary) {
+    background: $bg-elevated !important;
+    border: 1px dashed $border-default !important;
+    color: #666 !important;
+    border-radius: 12px !important;
+    padding: 2rem !important;
+    
+    :global(.p-message-wrapper) {
+      justify-content: center;
+    }
+    
+    :global(.p-message-text) {
+      font-weight: 500;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .tabView {
+    :global {
+      .p-tabview-nav-link {
+        padding: 0.875rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  }
+  
+  .cardList {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding-bottom: 1rem;
+  }
+  
+  .tabView {
+    :global {
+      .p-tabview-nav {
+        flex-wrap: wrap;
+      }
+      
+      .p-tabview-nav-link {
+        padding: 0.75rem 0.875rem;
+        font-size: 0.85rem;
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+  }
 }

@@ -18,7 +18,7 @@ function OtpInput({ setStep, phone }: IProps) {
   const router = useRouter();
   const toast = useRef<Toast>(null);
 
-  const { mutate: otpMutate } = useMutation({
+  const { mutate: otpMutate, isPending } = useMutation({
     mutationKey: ['otp'],
     mutationFn: async () =>
       postOtp({ phone: normalizePhone(phone), code: otp }),
@@ -41,8 +41,14 @@ function OtpInput({ setStep, phone }: IProps) {
     otpMutate();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && otp.length === 4) {
+      handleVerifyOtp();
+    }
+  };
+
   return (
-    <div className={styles.otpInput}>
+    <div className={styles.otpInput} onKeyDown={handleKeyDown}>
       <Toast ref={toast} />
       <InputOtp
         integerOnly
@@ -52,12 +58,13 @@ function OtpInput({ setStep, phone }: IProps) {
         style={{ gap: 10 }}
       />
       <div>
-        {/* <Button label="Yenidən göndər" link></Button> */}
         <Button
           label="Təsdiqlə"
           disabled={otp.length < 4}
           onClick={handleVerifyOtp}
-        ></Button>
+          className={styles.button}
+          loading={isPending}
+        />
       </div>
     </div>
   );
