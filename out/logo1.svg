@@ -5,6 +5,7 @@
    height="326.94431"
    id="svg653"
    viewBox="0 0 465.4364 326.94431"
+   sodipodi:docname="44b61ddb212dc31111435decf574a37a.cdr"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -14,6 +15,8 @@
   <sodipodi:namedview
      id="namedview655"
      pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0" />
@@ -1321,6 +1324,6 @@
   </g>
   <path
      d="M 0.28345001,0.28345001 V 326.66085 H 465.15295 V 0.28345001 Z"
-     style="fill:none;"
+     style="fill:none;stroke:#d9dadb;stroke-width:0.5669;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none"
      id="path651" />
 </svg>
