@@ -21,6 +21,7 @@ import {
   getServiceTypes,
 } from '@/app/api';
 import { format } from 'date-fns';
+import { useState } from 'react';
 
 // ✅ yup + resolver
 import * as yup from 'yup';
@@ -120,6 +121,8 @@ const schema: yup.ObjectSchema<BookingFormData> = yup
   });
 
 const CreateBooking = ({ visible, onHide, refetch }: BookingDialogProps) => {
+  const [step, setStep] = useState<'warning' | 'form'>('warning');
+  
   const {
     control,
     handleSubmit,
@@ -141,6 +144,12 @@ const CreateBooking = ({ visible, onHide, refetch }: BookingDialogProps) => {
       hour: null,
     },
   });
+  
+  const handleClose = () => {
+    reset();
+    setStep('warning');
+    onHide();
+  };
 
   const selectedDate = watch('date');
   const selectedHour = watch('hour');
@@ -200,113 +209,126 @@ const CreateBooking = ({ visible, onHide, refetch }: BookingDialogProps) => {
       visible={visible}
       style={{ width: '100%', maxWidth: '500px' }}
       modal
-      onHide={() => {
-        reset();
-        onHide();
-      }}
+      onHide={handleClose}
     >
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        {/* Müştəri adı */}
-        <label>Müştəri adı</label>
-        <Controller
-          name="client_name"
-          control={control}
-          render={({ field }) => (
-            <InputText
-              {...field}
-              className={`${styles.input} ${
-                errors.client_name ? 'p-invalid' : ''
-              }`}
-            />
-          )}
-        />
+      {step === 'warning' ? (
+        <div className={styles.warningStep}>
+          <div className={styles.warningIcon}>
+            <i className="pi pi-info-circle" />
+          </div>
+          <p className={styles.warningText}>
+            Rezervasiya etdiyiniz zaman sizdən avans depozit istəniləcəkdir
+          </p>
+          <Button
+            label="Aydındır"
+            onClick={() => setStep('form')}
+            className={styles.submit}
+          />
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          {/* Müştəri adı */}
+          <label>Müştəri adı</label>
+          <Controller
+            name="client_name"
+            control={control}
+            render={({ field }) => (
+              <InputText
+                {...field}
+                className={`${styles.input} ${
+                  errors.client_name ? 'p-invalid' : ''
+                }`}
+              />
+            )}
+          />
 
-        {/* Xidmətlər */}
-        <label>Xidmətlər</label>
-        <Controller
-          name="services"
-          control={control}
-          render={({ field }) => (
-            <MultiSelect
-              {...field}
-              filter
-              options={servicesData}
-              optionLabel="name"
-              placeholder={loadingServices ? 'Yüklənir...' : 'Xidmət seçin'}
-              className={`${styles.input} ${
-                errors.services ? 'p-invalid' : ''
-              }`}
-              disabled={loadingServices}
-              onChange={(e) => field.onChange(e.value)}
-            />
-          )}
-        />
+          {/* Xidmətlər */}
+          <label>Xidmətlər</label>
+          <Controller
+            name="services"
+            control={control}
+            render={({ field }) => (
+              <MultiSelect
+                {...field}
+                filter
+                options={servicesData}
+                optionLabel="name"
+                placeholder={loadingServices ? 'Yüklənir...' : 'Xidmət seçin'}
+                className={`${styles.input} ${
+                  errors.services ? 'p-invalid' : ''
+                }`}
+                disabled={loadingServices}
+                onChange={(e) => field.onChange(e.value)}
+              />
+            )}
+          />
 
-        {/* Tarix */}
-        <label>Tarix</label>
-        <Controller
-          name="date"
-          control={control}
-          render={({ field }) => (
-            <Calendar
-              {...field}
-              dateFormat="dd.mm.yy"
-              minDate={new Date()}
-              showIcon
-              className={`${styles.input} ${errors.date ? 'p-invalid' : ''}`}
-              onChange={(e) => {
-                field.onChange(e.value);
-                // сброс часов/врача при смене даты
-                setValue('hour', null, { shouldValidate: true });
-                setValue('doctor', null, { shouldValidate: true });
-              }}
-            />
-          )}
-        />
+          {/* Tarix */}
+          <label>Tarix</label>
+          <Controller
+            name="date"
+            control={control}
+            render={({ field }) => (
+              <Calendar
+                {...field}
+                dateFormat="dd.mm.yy"
+                minDate={new Date()}
+                showIcon
+                className={`${styles.input} ${errors.date ? 'p-invalid' : ''}`}
+                onChange={(e) => {
+                  field.onChange(e.value);
+                  // сброс часов/врача при смене даты
+                  setValue('hour', null, { shouldValidate: true });
+                  setValue('doctor', null, { shouldValidate: true });
+                }}
+              />
+            )}
+          />
 
-        {/* Saat */}
-        <label>Saat</label>
-        <Controller
-          name="hour"
-          control={control}
-          render={({ field }) => (
-            <Dropdown
-              {...field}
-              options={hoursData}
-              optionLabel="time"
-              placeholder={loadingHours ? 'Yüklənir...' : 'Saat seçin'}
-              className={`${styles.input} ${errors.hour ? 'p-invalid' : ''}`}
-              disabled={!selectedDate || loadingHours}
-              onChange={(e) => field.onChange(e.value)}
-            />
-          )}
-        />
+          {/* Saat */}
+          <label>Saat</label>
+          <Controller
+            name="hour"
+            control={control}
+            render={({ field }) => (
+              <Dropdown
+                {...field}
+                options={hoursData}
+                optionLabel="time"
+                placeholder={loadingHours ? 'Yüklənir...' : 'Saat seçin'}
+                className={`${styles.input} ${errors.hour ? 'p-invalid' : ''}`}
+                disabled={!selectedDate || loadingHours}
+                onChange={(e) => field.onChange(e.value)}
+              />
+            )}
+          />
 
-        {/* Həkim */}
-        <label>Həkim</label>
-        <Controller
-          name="doctor"
-          control={control}
-          render={({ field }) => (
-            <Dropdown
-              {...field}
-              options={doctorsData}
-              optionLabel="full_name"
-              placeholder={loadingDoctors ? 'Yüklənir...' : 'Həkim seçin'}
-              className={`${styles.input} ${errors.doctor ? 'p-invalid' : ''}`}
-              disabled={!selectedDate || !selectedHour?.time || loadingDoctors}
-              onChange={(e) => field.onChange(e.value)}
-            />
-          )}
-        />
+          {/* Həkim */}
+          <label>Həkim</label>
+          <Controller
+            name="doctor"
+            control={control}
+            render={({ field }) => (
+              <Dropdown
+                {...field}
+                options={doctorsData}
+                optionLabel="full_name"
+                placeholder={loadingDoctors ? 'Yüklənir...' : 'Həkim seçin'}
+                className={`${styles.input} ${errors.doctor ? 'p-invalid' : ''}`}
+                disabled={!selectedDate || !selectedHour?.time || loadingDoctors}
+                onChange={(e) => field.onChange(e.value)}
+              />
+            )}
+          />
 
-        <Button
-          type="submit"
-          label={isSubmitting ? 'Göndərilir...' : 'Təsdiqlə'}
-          className={styles.submit}
-          disabled={!isValid || isSubmitting}
-        />
-      </form>
+          <Button
+            type="submit"
+            label={isSubmitting ? 'Göndərilir...' : 'Təsdiqlə'}
+            className={styles.submit}
+            disabled={!isValid || isSubmitting}
+          />
+        </form>
+      )}
     </Dialog>
   );
 };
