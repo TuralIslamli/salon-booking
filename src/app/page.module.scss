@@ -48,7 +48,6 @@ $border-default: #333333;
     gap: 12px;
     
     @media (max-width: 480px) {
-      width: 100%;
       justify-content: flex-end;
     }
   }

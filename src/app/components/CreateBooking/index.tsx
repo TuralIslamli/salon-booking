@@ -157,13 +157,14 @@ const CreateBooking = ({ visible, onHide, refetch }: BookingDialogProps) => {
   const { data: servicesData = [], isLoading: loadingServices } = useQuery({
     queryKey: ['services'],
     queryFn: getServiceTypes,
+    enabled: visible && step === 'form',
   });
 
   const { data: hoursData = [], isLoading: loadingHours } = useQuery({
     queryKey: ['hours', selectedDate],
     queryFn: () =>
       getAvailableHours(format(selectedDate as Date, 'yyyy-MM-dd')),
-    enabled: !!selectedDate,
+    enabled: visible && step === 'form' && !!selectedDate,
   });
 
   const { data: doctorsData = [], isLoading: loadingDoctors } = useQuery({
@@ -172,7 +173,7 @@ const CreateBooking = ({ visible, onHide, refetch }: BookingDialogProps) => {
       getDoctorsByDateTime(
         `${format(selectedDate as Date, 'yyyy-MM-dd')} ${selectedHour?.time}`
       ),
-    enabled: !!selectedDate && !!selectedHour?.time,
+    enabled: visible && step === 'form' && !!selectedDate && !!selectedHour?.time,
   });
 
   const { mutate: bookingCreate } = useMutation({
