@@ -12,7 +12,7 @@ $border-subtle: #262626;
 .form {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 8px;
   
   /* Staggered animation for form fields */
   > * {
@@ -27,15 +27,15 @@ $border-subtle: #262626;
   
   label {
     color: #a3a3a3;
-    font-size: 0.8rem;
+    font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-top: 0.75rem;
-    margin-bottom: 0.25rem;
+    margin-top: 12px;
+    margin-bottom: 4px;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
     
     &::before {
       content: '';
@@ -71,8 +71,8 @@ $border-subtle: #262626;
     border: 2px solid $border-default !important;
     border-radius: 10px !important;
     color: white !important;
-    padding: 0.8rem 1rem !important;
-    font-size: 0.95rem !important;
+    padding: 13px 16px !important;
+    font-size: 15px !important;
     transition: all 0.2s ease !important;
     
     &::placeholder {
@@ -95,8 +95,8 @@ $border-subtle: #262626;
     border: 2px solid $border-default !important;
     border-radius: 10px !important;
     color: white !important;
-    padding: 0.8rem 1rem !important;
-    font-size: 0.95rem !important;
+    padding: 13px 16px !important;
+    font-size: 15px !important;
     transition: all 0.2s ease !important;
     
     &::placeholder {
@@ -122,8 +122,8 @@ $border-subtle: #262626;
     
     :global(.p-dropdown-label) {
       color: white !important;
-      padding: 0.8rem 1rem !important;
-      font-size: 0.95rem !important;
+      padding: 13px 16px !important;
+      font-size: 15px !important;
       
       &.p-placeholder {
         color: #666 !important;
@@ -132,7 +132,7 @@ $border-subtle: #262626;
     
     :global(.p-dropdown-trigger) {
       color: #666 !important;
-      width: 3rem !important;
+      width: 48px !important;
       
       .p-dropdown-trigger-icon {
         transition: transform 0.2s ease;
@@ -167,12 +167,12 @@ $border-subtle: #262626;
     transition: all 0.2s ease !important;
     
     :global(.p-multiselect-label-container) {
-      padding: 0.5rem 1rem !important;
+      padding: 8px 16px !important;
     }
     
     :global(.p-multiselect-label) {
       color: white !important;
-      font-size: 0.95rem !important;
+      font-size: 15px !important;
       
       &.p-placeholder {
         color: #666 !important;
@@ -183,19 +183,19 @@ $border-subtle: #262626;
       background: rgba(250, 204, 21, 0.15) !important;
       color: $brand-gold !important;
       border-radius: 6px !important;
-      padding: 0.25rem 0.5rem !important;
-      font-size: 0.85rem !important;
+      padding: 4px 8px !important;
+      font-size: 14px !important;
       font-weight: 500 !important;
       
       :global(.p-multiselect-token-icon) {
         color: $brand-gold !important;
-        margin-left: 0.5rem !important;
+        margin-left: 8px !important;
       }
     }
     
     :global(.p-multiselect-trigger) {
       color: #666 !important;
-      width: 3rem !important;
+      width: 48px !important;
     }
     
     &:hover:not(.p-focus) {
@@ -220,8 +220,8 @@ $border-subtle: #262626;
       border: 2px solid $border-default !important;
       border-radius: 10px 0 0 10px !important;
       color: white !important;
-      padding: 0.8rem 1rem !important;
-      font-size: 0.95rem !important;
+      padding: 13px 16px !important;
+      font-size: 15px !important;
     }
     
     :global(.p-datepicker-trigger) {
@@ -280,11 +280,11 @@ $border-subtle: #262626;
   background: linear-gradient(135deg, $brand-gold-light 0%, $brand-gold 50%, $brand-gold-dark 100%) !important;
   color: #0a0a0a !important;
   font-weight: 700 !important;
-  font-size: 1rem !important;
+  font-size: 16px !important;
   border: none !important;
   border-radius: 12px !important;
-  padding: 0.95rem 1.5rem !important;
-  margin-top: 1.25rem;
+  padding: 15px 24px !important;
+  margin-top: 20px;
   overflow: hidden;
   transition: all 0.3s ease !important;
   box-shadow: 0 4px 15px rgba(250, 204, 21, 0.2);
@@ -344,15 +344,15 @@ $border-subtle: #262626;
 /* Error message styling */
 .error {
   color: #f87171;
-  font-size: 0.8rem;
-  margin-top: 0.25rem;
+  font-size: 13px;
+  margin-top: 4px;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 6px;
   
   &::before {
     content: '⚠';
-    font-size: 0.75rem;
+    font-size: 12px;
   }
 }
 
@@ -360,10 +360,33 @@ $border-subtle: #262626;
 .fieldGroup {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: 16px;
   
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Name fields (first name + last name) */
+.nameFields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 4px 0;
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.nameField {
+  display: flex;
+  flex-direction: column;
+  
+  label {
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
   }
 }
 
@@ -371,7 +394,7 @@ $border-subtle: #262626;
 .divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, $border-subtle, transparent);
-  margin: 0.5rem 0;
+  margin: 8px 0;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -383,7 +406,7 @@ $border-subtle: #262626;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 1.5rem 1rem;
+  padding: 24px 16px;
   animation: fadeIn 0.4s ease-out;
 }
 
@@ -406,11 +429,11 @@ $border-subtle: #262626;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
   animation: pulse 2s ease-in-out infinite;
   
   i {
-    font-size: 2rem;
+    font-size: 32px;
     color: $brand-gold;
   }
 }
@@ -426,9 +449,9 @@ $border-subtle: #262626;
 
 .warningText {
   color: #e5e5e5;
-  font-size: 1.1rem;
+  font-size: 18px;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
   max-width: 350px;
   font-weight: 500;
 }

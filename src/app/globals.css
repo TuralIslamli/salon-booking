@@ -169,17 +169,17 @@ a:hover {
 .p-dialog-header {
   background: transparent !important;
   border-bottom: 1px solid var(--border-subtle) !important;
-  padding: 1.25rem 1.5rem !important;
+  padding: 20px 24px !important;
 }
 
 .p-dialog-title {
   color: var(--brand-gold) !important;
   font-weight: 600 !important;
-  font-size: 1.25rem !important;
+  font-size: 20px !important;
 }
 
 .p-dialog-header-icons {
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .p-dialog-header-icon {
@@ -194,7 +194,7 @@ a:hover {
 
 .p-dialog-content {
   background: transparent !important;
-  padding: 1.5rem !important;
+  padding: 24px !important;
 }
 
 /* Input Fields */
@@ -237,10 +237,18 @@ a:hover {
   box-shadow: var(--shadow-lg) !important;
 }
 
+.p-dropdown-items,
+.p-multiselect-items {
+  padding: 8px !important;
+}
+
 .p-dropdown-item,
 .p-multiselect-item {
   color: var(--text-secondary) !important;
   transition: all var(--transition-fast) !important;
+  padding: 12px 16px !important;
+  border-radius: var(--radius-sm) !important;
+  margin: 2px 0 !important;
 }
 
 .p-dropdown-item:hover,
@@ -252,6 +260,36 @@ a:hover {
 .p-dropdown-item.p-highlight,
 .p-multiselect-item.p-highlight {
   background: var(--brand-gold) !important;
+  color: var(--bg-primary) !important;
+}
+
+/* MultiSelect header and checkbox */
+.p-multiselect-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  padding: 12px 16px !important;
+}
+
+.p-multiselect-filter-container .p-inputtext {
+  padding: 8px 12px !important;
+}
+
+.p-multiselect-item .p-checkbox {
+  margin-right: 12px !important;
+}
+
+.p-checkbox .p-checkbox-box {
+  background: var(--bg-elevated) !important;
+  border: 2px solid var(--border-default) !important;
+  border-radius: 4px !important;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+  background: var(--brand-gold) !important;
+  border-color: var(--brand-gold) !important;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon {
   color: var(--bg-primary) !important;
 }
 
@@ -306,8 +344,8 @@ a:hover {
 .p-tag {
   border-radius: var(--radius-full) !important;
   font-weight: 600 !important;
-  font-size: 0.75rem !important;
-  padding: 0.35rem 0.75rem !important;
+  font-size: 12px !important;
+  padding: 6px 12px !important;
 }
 
 /* Message */
@@ -329,7 +367,7 @@ a:hover {
 }
 
 .p-card .p-card-body {
-  padding: 1.25rem !important;
+  padding: 20px !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════

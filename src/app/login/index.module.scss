@@ -13,7 +13,7 @@ $brand-gold-dark: #eab308;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 32px;
   overflow-x: hidden;
   overflow-y: auto;
   
@@ -69,10 +69,10 @@ $brand-gold-dark: #eab308;
     0 0 0 1px rgba(255, 255, 255, 0.05) inset,
     0 0 80px rgba(250, 204, 21, 0.05);
   
-  padding: 2.5rem;
+  padding: 40px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 24px;
   width: 100%;
   max-width: 420px;
   text-align: center;
@@ -96,7 +96,7 @@ $brand-gold-dark: #eab308;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
   animation: logoFadeIn 0.8s ease-out;
 }
 
@@ -127,11 +127,11 @@ $brand-gold-dark: #eab308;
 .headerSection {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  gap: 8px;
+  margin-bottom: 8px;
   
   h2 {
-    font-size: 1.75rem;
+    font-size: 28px;
     font-weight: 700;
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -150,7 +150,7 @@ $brand-gold-dark: #eab308;
 
 .subtitle {
   color: #888;
-  font-size: 0.9rem;
+  font-size: 14px;
   margin: 0;
   font-weight: 400;
 }
@@ -173,14 +173,14 @@ $brand-gold-dark: #eab308;
   align-self: start;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: -0.25rem;
+  margin-bottom: -4px;
 }
 
 .phoneInput,
 .otpInput {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 12px;
   text-align: left;
   
   /* Staggered animation for form elements */
@@ -210,13 +210,13 @@ $brand-gold-dark: #eab308;
   
   /* OTP input boxes styling */
   :global(.p-inputotp) {
-    gap: 0.75rem;
+    gap: 12px;
   }
   
   :global(.p-inputotp-input) {
     width: 50px !important;
     height: 56px !important;
-    font-size: 1.5rem !important;
+    font-size: 24px !important;
     font-weight: 600 !important;
     text-align: center !important;
     background: rgba(26, 26, 26, 0.8) !important;
@@ -242,11 +242,11 @@ $brand-gold-dark: #eab308;
   background: linear-gradient(135deg, $brand-gold-light 0%, $brand-gold 50%, $brand-gold-dark 100%) !important;
   color: #0a0a0a !important;
   font-weight: 700 !important;
-  font-size: 1rem !important;
+  font-size: 16px !important;
   border: none !important;
   border-radius: 12px !important;
-  padding: 0.875rem 1.5rem !important;
-  margin-top: 0.5rem;
+  padding: 14px 24px !important;
+  margin-top: 8px;
   overflow: hidden;
   transition: all 0.3s ease !important;
   
@@ -320,8 +320,8 @@ $brand-gold-dark: #eab308;
     background: rgba(26, 26, 26, 0.8) !important;
     border: 2px solid #333 !important;
     border-radius: 12px !important;
-    padding: 0.875rem 1rem !important;
-    font-size: 1rem !important;
+    padding: 14px 16px !important;
+    font-size: 16px !important;
     color: white !important;
     transition: all 0.2s ease !important;
     
@@ -358,22 +358,22 @@ $brand-gold-dark: #eab308;
 /* Responsive adjustments */
 @media (max-width: 480px) {
   .login {
-    padding: 1rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding: 16px;
+    padding-top: 24px;
+    padding-bottom: 24px;
     align-items: center;
     justify-content: center;
   }
   
   .card {
-    padding: 1.5rem;
+    padding: 24px;
     border-radius: 16px;
-    gap: 1rem;
+    gap: 16px;
     max-width: 100%;
   }
   
   .logoWrapper {
-    margin-bottom: 0.25rem;
+    margin-bottom: 4px;
   }
   
   .logo {
@@ -381,49 +381,49 @@ $brand-gold-dark: #eab308;
   }
   
   .headerSection {
-    margin-bottom: 0.25rem;
-    gap: 0.35rem;
+    margin-bottom: 4px;
+    gap: 6px;
     
     h2 {
-      font-size: 1.4rem;
+      font-size: 22px;
     }
   }
   
   .subtitle {
-    font-size: 0.8rem;
+    font-size: 13px;
   }
   
   .phoneInput,
   .otpInput {
-    gap: 0.6rem;
+    gap: 10px;
   }
   
   .button {
-    padding: 0.75rem 1.25rem !important;
-    font-size: 0.95rem !important;
+    padding: 12px 20px !important;
+    font-size: 15px !important;
   }
   
   .otpInput {
     :global(.p-inputotp) {
-      gap: 0.5rem;
+      gap: 8px;
     }
     
     :global(.p-inputotp-input) {
       width: 48px !important;
       height: 52px !important;
-      font-size: 1.25rem !important;
+      font-size: 20px !important;
     }
   }
 }
 
 @media (max-width: 360px) {
   .login {
-    padding: 0.75rem;
+    padding: 12px;
   }
   
   .card {
-    padding: 1.25rem;
-    gap: 0.875rem;
+    padding: 20px;
+    gap: 14px;
   }
   
   .logo {
@@ -431,22 +431,22 @@ $brand-gold-dark: #eab308;
   }
   
   .headerSection h2 {
-    font-size: 1.25rem;
+    font-size: 20px;
   }
   
   .subtitle {
-    font-size: 0.75rem;
+    font-size: 12px;
   }
   
   .otpInput {
     :global(.p-inputotp) {
-      gap: 0.4rem;
+      gap: 6px;
     }
     
     :global(.p-inputotp-input) {
       width: 42px !important;
       height: 46px !important;
-      font-size: 1.1rem !important;
+      font-size: 18px !important;
       border-radius: 10px !important;
     }
   }

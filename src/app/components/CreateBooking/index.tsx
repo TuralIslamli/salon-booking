@@ -29,7 +29,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { AxiosResponse } from 'axios';
 
 interface BookingFormData {
-  client_name: string;
+  client_first_name: string;
+  client_last_name: string;
   services: { id: number; name: string }[];
   doctor: { id: number; full_name: string } | null;
   date?: Date;
@@ -57,19 +58,23 @@ const isFutureDateTime = (date?: Date | null, timeStr?: string | null) => {
   }
 };
 
+// Валидация для имени/фамилии
+const nameValidation = yup
+  .string()
+  .transform((v) => (typeof v === 'string' ? v.trim() : v))
+  .required('Bu sahə mütləqdir')
+  .min(2, 'Minimum 2 simvol')
+  .max(40, 'Maksimum 40 simvol')
+  .matches(
+    /^[\p{L}][\p{L}\p{M}\s.'-]{1,39}$/u,
+    'Yalnız hərflər, boşluq, nöqtə, tire və apostrof'
+  );
+
 // ✅ Yup схема (все сообщения — на азербайджанском)
 const schema: yup.ObjectSchema<BookingFormData> = yup
   .object({
-    client_name: yup
-      .string()
-      .transform((v) => (typeof v === 'string' ? v.trim() : v))
-      .required('Müştəri adı mütləqdir')
-      .min(2, 'Minimum 2 simvol')
-      .max(80, 'Maksimum 80 simvol')
-      .matches(
-        /^[\p{L}][\p{L}\p{M}\s.'-]{1,79}$/u,
-        'Yalnız hərflər, boşluq, nöqtə, tire və apostrof'
-      ),
+    client_first_name: nameValidation.clone().required('Ad mütləqdir'),
+    client_last_name: nameValidation.clone().required('Soyad mütləqdir'),
 
     services: yup
       .array(
@@ -137,7 +142,8 @@ const CreateBooking = ({ visible, onHide, refetch }: BookingDialogProps) => {
     resolver: yupResolver(schema), // <-- ВАЖНО: подключаем yup
     shouldUnregister: false,
     defaultValues: {
-      client_name: '',
+      client_first_name: '',
+      client_last_name: '',
       services: [],
       doctor: null,
       date: undefined,
@@ -186,8 +192,11 @@ const CreateBooking = ({ visible, onHide, refetch }: BookingDialogProps) => {
   });
 
   const onSubmit = (data: BookingFormData) => {
+    // Соединяем имя и фамилию для отправки на бэкенд
+    const fullName = `${data.client_first_name.trim()} ${data.client_last_name.trim()}`;
+    
     const payload = {
-      client_name: data.client_name,
+      client_name: fullName,
       doctor_id: data.doctor?.id,
       reservation_date: `${format(data.date as Date, 'dd-MM-yyyy')} ${
         data.hour!.time
@@ -228,20 +237,41 @@ const CreateBooking = ({ visible, onHide, refetch }: BookingDialogProps) => {
         </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          {/* Müştəri adı */}
-          <label>Müştəri adı</label>
-          <Controller
-            name="client_name"
-            control={control}
-            render={({ field }) => (
-              <InputText
-                {...field}
-                className={`${styles.input} ${
-                  errors.client_name ? 'p-invalid' : ''
-                }`}
+          {/* Müştəri adı və soyadı */}
+          <div className={styles.nameFields}>
+            <div className={styles.nameField}>
+              <label>Ad</label>
+              <Controller
+                name="client_first_name"
+                control={control}
+                render={({ field }) => (
+                  <InputText
+                    {...field}
+                    placeholder="Adınızı daxil edin"
+                    className={`${styles.input} ${
+                      errors.client_first_name ? 'p-invalid' : ''
+                    }`}
+                  />
+                )}
               />
-            )}
-          />
+            </div>
+            <div className={styles.nameField}>
+              <label>Soyad</label>
+              <Controller
+                name="client_last_name"
+                control={control}
+                render={({ field }) => (
+                  <InputText
+                    {...field}
+                    placeholder="Soyadınızı daxil edin"
+                    className={`${styles.input} ${
+                      errors.client_last_name ? 'p-invalid' : ''
+                    }`}
+                  />
+                )}
+              />
+            </div>
+          </div>
 
           {/* Xidmətlər */}
           <label>Xidmətlər</label>
